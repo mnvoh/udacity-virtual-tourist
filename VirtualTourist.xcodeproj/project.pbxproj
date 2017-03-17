@@ -56,7 +56,7 @@
 		11965EE81E7C4C81009994E2 /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
-				11965EFD1E7C4CD6009994E2 /* Model */,
+				11965EFD1E7C4CD6009994E2 /* Models */,
 				11965EE91E7C4C81009994E2 /* AppDelegate.swift */,
 				11965EEB1E7C4C81009994E2 /* ViewController.swift */,
 				11965EED1E7C4C81009994E2 /* Main.storyboard */,
@@ -67,12 +67,12 @@
 			path = VirtualTourist;
 			sourceTree = "<group>";
 		};
-		11965EFD1E7C4CD6009994E2 /* Model */ = {
+		11965EFD1E7C4CD6009994E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
