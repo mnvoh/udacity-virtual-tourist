@@ -12,6 +12,7 @@
 		11965EEF1E7C4C81009994E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11965EED1E7C4C81009994E2 /* Main.storyboard */; };
 		11965EF11E7C4C81009994E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11965EF01E7C4C81009994E2 /* Assets.xcassets */; };
 		11965EF41E7C4C81009994E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11965EF21E7C4C81009994E2 /* LaunchScreen.storyboard */; };
+		11965EFC1E7C4CD1009994E2 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		11965EF01E7C4C81009994E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11965EF31E7C4C81009994E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11965EF51E7C4C81009994E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		11965EE81E7C4C81009994E2 /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				11965EFD1E7C4CD6009994E2 /* Model */,
 				11965EE91E7C4C81009994E2 /* AppDelegate.swift */,
 				11965EEB1E7C4C81009994E2 /* ViewController.swift */,
 				11965EED1E7C4C81009994E2 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				11965EF51E7C4C81009994E2 /* Info.plist */,
 			);
 			path = VirtualTourist;
+			sourceTree = "<group>";
+		};
+		11965EFD1E7C4CD6009994E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11965EFC1E7C4CD1009994E2 /* CoreDataStack.swift in Sources */,
 				11965EEC1E7C4C81009994E2 /* ViewController.swift in Sources */,
 				11965EEA1E7C4C81009994E2 /* AppDelegate.swift in Sources */,
 			);
@@ -264,7 +276,7 @@
 				DEVELOPMENT_TEAM = 2CYX44K4NB;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nozary.VirtualTourist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozary.virtualtourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -277,7 +289,7 @@
 				DEVELOPMENT_TEAM = 2CYX44K4NB;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nozary.VirtualTourist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozary.virtualtourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
