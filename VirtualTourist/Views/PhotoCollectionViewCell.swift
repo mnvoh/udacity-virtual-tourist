@@ -22,6 +22,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
       else {
         activityInd.isHidden = false
       }
+      imageView.image = image
     }
   }
   
@@ -42,6 +43,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     imageView = UIImageView()
     imageView.backgroundColor = #colorLiteral(red: 0.9466013642, green: 0.9466013642, blue: 0.9466013642, alpha: 1)
     imageView.contentMode = .scaleAspectFill
+    imageView.translatesAutoresizingMaskIntoConstraints = false
     
     addSubview(imageView)
     
@@ -54,6 +56,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     activityInd = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     activityInd.color = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     activityInd.startAnimating()
+    activityInd.translatesAutoresizingMaskIntoConstraints = false
     
     addSubview(activityInd)
     

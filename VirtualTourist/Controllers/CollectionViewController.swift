@@ -14,9 +14,14 @@ class CollectionViewController: UIViewController {
   // MARK: - IBOutlets
   @IBOutlet weak var map: MKMapView!
   @IBOutlet weak var collection: UICollectionView!
+  @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+  
   
   // MARK: - Properties
+  let cellReuseId = "photocell"
+  let dataStack = (UIApplication.shared.delegate as! AppDelegate).dataStack
   var location: Locations!
+  var photos: [UIImage?] = []
   
   // MARK: - Overrides
   override func viewDidLoad() {
@@ -30,21 +35,93 @@ class CollectionViewController: UIViewController {
     annotation.coordinate = center
     map.addAnnotation(annotation)
     
-    FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (photos, error) in
-      guard let photos = photos else {
-        print(error)
-        return
-      }
-      
-      for photo in photos {
-        print(photo.url)
-      }
-    }
+    setupCollectionView()
+    
+    getPhotos()
+  }
+  
+  override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+    setupCollectionView()
   }
   
   // MARK: - Private Functions
   private func getPhotos() {
-    
+    FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (photos, error) in
+      guard error == nil else {
+        self.showError(title: "Error", message: error!)
+        return
+      }
+      
+      guard let photos = photos else {
+        self.showError(title: "Error", message: "Could not get the photos!")
+        return
+      }
+      
+      if photos.count <= 0 {
+        return
+      }
+      
+      DispatchQueue.main.async {
+        self.photos = [UIImage?]()
+        for _ in 0 ..< photos.count {
+          self.photos.append(nil)
+        }
+        self.collection.reloadData()
+      }
+      
+      for (index, item) in photos.enumerated() {
+        FlickrApiClient.sharedInstance.download(flickrPhoto: item, indexInArray: index, { (image, indexInArray) in
+          DispatchQueue.main.async {
+            self.photos[indexInArray] = image
+            self.collection.reloadData()
+          }
+        })
+      }
+    }
   }
+  
+  private func setupCollectionView() {
+    let itemsize = (collection.frame.width - 2) / CGFloat(3)
+    flowLayout.itemSize = CGSize(width: itemsize, height: itemsize)
+    flowLayout.minimumInteritemSpacing = 1
+    flowLayout.minimumLineSpacing = 1
+    collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseId)
+  }
+  
+  private func showError(title: String, message: String) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alertController.addAction(action)
+    present(alertController, animated: true, completion: nil)
+  }
+}
+
+// MARK: - CollectionView DataSource
+extension CollectionViewController: UICollectionViewDataSource {
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return photos.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    var cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath)
+      as? PhotoCollectionViewCell
+    
+    if cell == nil {
+      cell = PhotoCollectionViewCell()
+    }
+    
+    cell?.image = photos[indexPath.item]
+    
+    return cell!
+  }
+  
+}
+
+
+// MARK: - CollectionView Delegate
+extension CollectionViewController: UICollectionViewDelegate {
+  
+  
   
 }

@@ -81,4 +81,22 @@ class FlickrApiClient: Client {
     }
   }
   
+  func download(flickrPhoto: FlickrPhoto, indexInArray: Int, _ completionHandler: @escaping (UIImage?, Int) -> Void) {
+    DispatchQueue.global(qos: .userInitiated).async {
+      guard let url = URL(string: flickrPhoto.url) else {
+        completionHandler(nil, indexInArray)
+        return
+      }
+      
+      do {
+        let data = try Data(contentsOf: url)
+        let image = UIImage(data: data)
+        completionHandler(image, indexInArray)
+      } catch {
+        completionHandler(nil, indexInArray)
+        return
+      }
+    }
+  }
+  
 }
