@@ -21,7 +21,7 @@ class CollectionViewController: UIViewController {
   let cellReuseId = "photocell"
   let dataStack = (UIApplication.shared.delegate as! AppDelegate).dataStack
   var location: Locations!
-  var photos: [UIImage?] = []
+  var photos: [Photos?] = []
   
   // MARK: - Overrides
   override func viewDidLoad() {
@@ -38,9 +38,9 @@ class CollectionViewController: UIViewController {
     setupCollectionView()
     
     if let dbphotos = location.photos, dbphotos.count > 0 {
-      photos = [UIImage?]()
+      photos = [Photos?]()
       for p in dbphotos {
-        photos.append(UIImage(data: (p as! Photos).photo as! Data))
+        photos.append(p as! Photos)
       }
     }
     else {
@@ -70,7 +70,7 @@ class CollectionViewController: UIViewController {
       }
       
       DispatchQueue.main.async {
-        self.photos = [UIImage?]()
+        self.photos = [Photos?]()
         for _ in 0 ..< photos.count {
           self.photos.append(nil)
         }
@@ -79,17 +79,20 @@ class CollectionViewController: UIViewController {
       
       for (index, item) in photos.enumerated() {
         FlickrApiClient.sharedInstance.download(flickrPhoto: item, indexInArray: index, { (image, indexInArray) in
-          DispatchQueue.main.async {
-            self.photos[indexInArray] = image
-            self.collection.reloadData()
-          }
-          
           guard let image = image else { return }
           
           // save the image in the database
           if let imageData = UIImageJPEGRepresentation(image, 0.9) {
+            // Create a Photos object
             let dbphoto = Photos(image: imageData, context: (self.dataStack?.context)!)
             dbphoto.location = self.location
+            self.photos[indexInArray] = dbphoto
+            
+            // Update teh collection view
+            DispatchQueue.main.async {
+              self.collection.reloadData()
+            }
+            
             do {
               try self.dataStack?.saveContext()
             } catch {
@@ -143,6 +146,8 @@ extension CollectionViewController: UICollectionViewDataSource {
 // MARK: - CollectionView Delegate
 extension CollectionViewController: UICollectionViewDelegate {
   
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+  }
   
 }
