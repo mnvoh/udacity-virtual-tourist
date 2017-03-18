@@ -22,7 +22,7 @@
 		11965EEE1E7C4C81009994E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11965EF01E7C4C81009994E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11965EF31E7C4C81009994E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		11965EF51E7C4C81009994E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11965EF51E7C4C81009994E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,13 +56,12 @@
 		11965EE81E7C4C81009994E2 /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				11965EFF1E7D2F83009994E2 /* Controllers */,
+				11965EFE1E7D2F7B009994E2 /* Views */,
 				11965EFD1E7C4CD6009994E2 /* Models */,
 				11965EE91E7C4C81009994E2 /* AppDelegate.swift */,
 				11965EEB1E7C4C81009994E2 /* ViewController.swift */,
-				11965EED1E7C4C81009994E2 /* Main.storyboard */,
-				11965EF01E7C4C81009994E2 /* Assets.xcassets */,
-				11965EF21E7C4C81009994E2 /* LaunchScreen.storyboard */,
-				11965EF51E7C4C81009994E2 /* Info.plist */,
+				11965F001E7D2F8D009994E2 /* Supporting Files */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -73,6 +72,48 @@
 				11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		11965EFE1E7D2F7B009994E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11965F021E7D30F8009994E2 /* CustomViews */,
+				11965F011E7D30F1009994E2 /* Storyboards */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11965EFF1E7D2F83009994E2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		11965F001E7D2F8D009994E2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				11965EF01E7C4C81009994E2 /* Assets.xcassets */,
+				11965EF51E7C4C81009994E2 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		11965F011E7D30F1009994E2 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				11965EED1E7C4C81009994E2 /* Main.storyboard */,
+				11965EF21E7C4C81009994E2 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			path = ../Base.lproj;
+			sourceTree = "<group>";
+		};
+		11965F021E7D30F8009994E2 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
