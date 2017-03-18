@@ -11,16 +11,16 @@ import CoreData
 
 
 extension Locations {
-  
-  @nonobjc public class func fetchRequest() -> NSFetchRequest<Locations> {
-    return NSFetchRequest<Locations>(entityName: "Locations");
-  }
-  
-  @NSManaged public var latitude: Double
-  @NSManaged public var longitude: Double
-  @NSManaged public var latitudeDelta: Double
-  @NSManaged public var longitudeDelta: Double
-  @NSManaged public var createdAt: NSDate?
-  @NSManaged public var photos: Photos?
-  
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Locations> {
+        return NSFetchRequest<Locations>(entityName: "Locations");
+    }
+
+    @NSManaged public var createdAt: NSDate?
+    @NSManaged public var latitude: Double
+    @NSManaged public var latitudeDelta: Double
+    @NSManaged public var longitude: Double
+    @NSManaged public var longitudeDelta: Double
+    @NSManaged public var photos: Photos?
+
 }

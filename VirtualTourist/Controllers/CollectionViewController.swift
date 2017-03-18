@@ -14,7 +14,16 @@ class CollectionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print(location.latitude, location.longitude)
+    FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (photos, error) in
+      guard let photos = photos else {
+        print(error)
+        return
+      }
+      
+      for photo in photos {
+        print(photo.url)
+      }
+    }
   }
   
 }
