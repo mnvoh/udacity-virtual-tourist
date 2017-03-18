@@ -147,7 +147,19 @@ extension CollectionViewController: UICollectionViewDataSource {
 extension CollectionViewController: UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    // the photo has not been loaded, so move on
+    guard let photo = photos[indexPath.item] else {
+      return
+    }
     
+    dataStack?.context.delete(photo)
+    do {
+      try dataStack?.saveContext()
+    } catch {
+      print(error)
+    }
+    photos.remove(at: indexPath.item)
+    collectionView.deleteItems(at: [indexPath])
   }
   
 }
