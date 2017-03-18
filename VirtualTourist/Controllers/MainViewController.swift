@@ -91,6 +91,9 @@ class MainViewController: UIViewController {
     
     let annotation = MKPointAnnotation()
     if let fetchedObjects = fetchedResultsController.fetchedObjects {
+      // since we don't show a title for the pins, we can use it to store
+      // the index of the location. This makes accessing the location object
+      // so much easier
       annotation.title = "\(fetchedObjects.count)"
     }
     annotation.coordinate = location
@@ -114,7 +117,7 @@ class MainViewController: UIViewController {
   }
   
   /// Fetch the stored locations form the database
-  private func loadPins() {
+  fileprivate func loadPins() {
     do {
       try fetchedResultsController.performFetch()
     } catch {
@@ -137,6 +140,7 @@ class MainViewController: UIViewController {
       annotations.append(annotation)
     }
     
+    map.removeAnnotations(map.annotations)
     map.addAnnotations(annotations)
   }
   
@@ -167,10 +171,21 @@ extension MainViewController: MKMapViewDelegate {
       let title = unwrappedTitle,
       let index = Int(title),
       let location = fetchedResultsController.fetchedObjects?[index] else {
-      return
+        return
     }
     
-    performSegue(withIdentifier: Storyboard.mapToPhotosId, sender: location)
+    if deleteMode {
+      appDelegate.dataStack?.context.delete(location as! NSManagedObject)
+      do {
+        try appDelegate.dataStack?.saveContext()
+      } catch {
+        print(error.localizedDescription)
+      }
+      loadPins()
+    }
+    else {
+      performSegue(withIdentifier: Storyboard.mapToPhotosId, sender: location)
+    }
   }
   
 }
