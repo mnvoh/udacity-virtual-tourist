@@ -37,7 +37,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="map" destination="AOd-b1-tgl" id="u7c-Uh-kGM"/>
-                        <segue destination="V0a-0E-4nO" kind="show" id="R1O-7U-2cH"/>
+                        <segue destination="V0a-0E-4nO" kind="show" identifier="mapToPhotos" id="R1O-7U-2cH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

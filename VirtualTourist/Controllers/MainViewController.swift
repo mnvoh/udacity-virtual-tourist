@@ -19,18 +19,29 @@ class MainViewController: UIViewController {
   let appDelegate = UIApplication.shared.delegate as! AppDelegate
   var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
   
+  struct Storyboard {
+    static let mapToPhotosId = "mapToPhotos"
+  }
+  
   // MARK: - Overrides
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
     
     let fr = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.entityLocations)
-    fr.sortDescriptors = []
+    fr.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
     fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
                                                           managedObjectContext: (appDelegate.dataStack?.context)!,
                                                           sectionNameKeyPath: nil, cacheName: nil)
     
     loadPins()
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == Storyboard.mapToPhotosId {
+      let vc = segue.destination as! CollectionViewController
+      vc.location = sender as! Locations
+    }
   }
   
   // MARK: - IBActions
@@ -41,26 +52,36 @@ class MainViewController: UIViewController {
     if gesture.state != .began {
       return
     }
-    
+
     let touchLocation = gesture.location(in: map)
     let location = map.convert(touchLocation, toCoordinateFrom: map)
     let span = map.region.span
     
     let annotation = MKPointAnnotation()
+    if let fetchedObjects = fetchedResultsController.fetchedObjects {
+      annotation.title = "\(fetchedObjects.count)"
+    }
     annotation.coordinate = location
     map.addAnnotation(annotation)
     
-    let dbpin = Locations(lat: location.latitude, lng: location.longitude, latd: span.latitudeDelta,
-                          lngd: span.longitudeDelta, context: (appDelegate.dataStack?.context)!)
-    try! appDelegate.dataStack?.saveContext()
+    _ = Locations(lat: location.latitude, lng: location.longitude, latd: span.latitudeDelta,
+                  lngd: span.longitudeDelta, createdAt: NSDate(), context: (appDelegate.dataStack?.context)!)
+    do {
+      try appDelegate.dataStack?.saveContext()
+      try fetchedResultsController.performFetch()
+    } catch {
+      print(error.localizedDescription)
+    }
   }
   
   // MARK: - Private functions
   private func setup() {
     let longTapHandler = UILongPressGestureRecognizer(target: self, action: #selector(addPin(_:)))
     map.addGestureRecognizer(longTapHandler)
+    map.delegate = self
   }
   
+  /// Fetch the stored locations form the database
   private func loadPins() {
     do {
       try fetchedResultsController.performFetch()
@@ -75,15 +96,50 @@ class MainViewController: UIViewController {
     
     var annotations = [MKPointAnnotation]()
     
-    for object in fetchedObjects {
+    for (index, object) in fetchedObjects.enumerated() {
       let location = object as! Locations
       let coordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
       let annotation = MKPointAnnotation()
       annotation.coordinate = coordinates
+      annotation.title = "\(index)"
       annotations.append(annotation)
     }
     
     map.addAnnotations(annotations)
+  }
+  
+}
+
+// MARK: - Map Delegate
+extension MainViewController: MKMapViewDelegate {
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    let reuseId = "mkpin"
+    
+    var view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+    
+    if view == nil {
+      view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+      view?.canShowCallout = false
+    }
+    else {
+      view?.annotation = annotation
+    }
+    
+    return view
+  }
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    print(view.annotation?.title)
+    guard let annotation = view.annotation,
+      let unwrappedTitle = annotation.title,
+      let title = unwrappedTitle,
+      let index = Int(title),
+      let location = fetchedResultsController.fetchedObjects?[index] else {
+      return
+    }
+    
+    performSegue(withIdentifier: Storyboard.mapToPhotosId, sender: location)
   }
   
 }

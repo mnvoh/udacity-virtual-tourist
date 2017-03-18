@@ -10,8 +10,11 @@ import UIKit
 
 class CollectionViewController: UIViewController {
   
+  var location: Locations!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    print(location.latitude, location.longitude)
   }
   
 }

@@ -11,13 +11,15 @@ import CoreData
 
 extension Locations {
   
-  convenience init(lat: Double, lng: Double, latd: Double, lngd: Double, context: NSManagedObjectContext) {
+  convenience init(lat: Double, lng: Double, latd: Double, lngd: Double, createdAt: NSDate,
+                   context: NSManagedObjectContext) {
     if let ent = NSEntityDescription.entity(forEntityName: Constants.entityLocations, in: context) {
       self.init(entity: ent, insertInto: context)
       self.latitude = lat
       self.longitude = lng
       self.latitudeDelta = latd
       self.longitudeDelta = lngd
+      self.createdAt = createdAt
     }
     else {
       fatalError("Could not find entity \(Constants.entityLocations)")
