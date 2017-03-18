@@ -37,7 +37,15 @@ class CollectionViewController: UIViewController {
     
     setupCollectionView()
     
-    getPhotos()
+    if let dbphotos = location.photos, dbphotos.count > 0 {
+      photos = [UIImage?]()
+      for p in dbphotos {
+        photos.append(UIImage(data: (p as! Photos).photo as! Data))
+      }
+    }
+    else {
+      getPhotos()
+    }
   }
   
   override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
@@ -74,6 +82,19 @@ class CollectionViewController: UIViewController {
           DispatchQueue.main.async {
             self.photos[indexInArray] = image
             self.collection.reloadData()
+          }
+          
+          guard let image = image else { return }
+          
+          // save the image in the database
+          if let imageData = UIImageJPEGRepresentation(image, 0.9) {
+            let dbphoto = Photos(image: imageData, context: (self.dataStack?.context)!)
+            dbphoto.location = self.location
+            do {
+              try self.dataStack?.saveContext()
+            } catch {
+              print(error.localizedDescription)
+            }
           }
         })
       }

@@ -16,13 +16,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   
   var image: UIImage? = nil {
     didSet {
-      if image != nil {
-        activityInd.isHidden = true
+      // make sure we're on the main queue
+      DispatchQueue.main.async {
+        if self.image != nil {
+          self.activityInd.isHidden = true
+        }
+        else {
+          self.activityInd.isHidden = false
+        }
+        self.imageView.image = self.image
       }
-      else {
-        activityInd.isHidden = false
-      }
-      imageView.image = image
     }
   }
   
