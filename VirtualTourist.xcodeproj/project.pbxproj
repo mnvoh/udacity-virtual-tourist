@@ -21,6 +21,7 @@
 		11965F131E7D3A76009994E2 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F121E7D3A76009994E2 /* CollectionViewController.swift */; };
 		11965F161E7D3BC4009994E2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11965F151E7D3BC4009994E2 /* MapKit.framework */; };
 		11965F181E7D44E0009994E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F171E7D44E0009994E2 /* Constants.swift */; };
+		11965F1A1E7D5040009994E2 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F191E7D5040009994E2 /* Locations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		11965F121E7D3A76009994E2 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		11965F151E7D3BC4009994E2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		11965F171E7D44E0009994E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		11965F191E7D5040009994E2 /* Locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			children = (
 				11965F081E7D378B009994E2 /* Photos+CoreDataClass.swift */,
 				11965F091E7D378B009994E2 /* Photos+CoreDataProperties.swift */,
+				11965F191E7D5040009994E2 /* Locations.swift */,
 				11965F0A1E7D378B009994E2 /* Locations+CoreDataClass.swift */,
 				11965F0B1E7D378B009994E2 /* Locations+CoreDataProperties.swift */,
 				11965EFB1E7C4CD1009994E2 /* CoreDataStack.swift */,
@@ -231,6 +234,7 @@
 				11965F0F1E7D378B009994E2 /* Locations+CoreDataProperties.swift in Sources */,
 				11965EFC1E7C4CD1009994E2 /* CoreDataStack.swift in Sources */,
 				11965EEA1E7C4C81009994E2 /* AppDelegate.swift in Sources */,
+				11965F1A1E7D5040009994E2 /* Locations.swift in Sources */,
 				11965F111E7D3A68009994E2 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,4 +10,6 @@ import Foundation
 
 struct Constants {
   static let modelName = "VirtualTourist"
+  static let entityLocations = "Locations"
+  static let entityPhotos = "Photos"
 }

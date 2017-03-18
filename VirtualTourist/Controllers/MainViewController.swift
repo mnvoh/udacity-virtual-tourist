@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MainViewController: UIViewController {
   
@@ -15,22 +16,21 @@ class MainViewController: UIViewController {
   @IBOutlet weak var map: MKMapView!
   
   // MARK: - Properties
-  let dataStack = CoreDataStack(modelName: Constants.modelName)
+  let appDelegate = UIApplication.shared.delegate as! AppDelegate
+  var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
   
   // MARK: - Overrides
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    navigationController?.navigationBar.isHidden = true
-  }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    navigationController?.navigationBar.isHidden = false
+    
+    let fr = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.entityLocations)
+    fr.sortDescriptors = []
+    fetchedResultsController = NSFetchedResultsController(fetchRequest: fr,
+                                                          managedObjectContext: (appDelegate.dataStack?.context)!,
+                                                          sectionNameKeyPath: nil, cacheName: nil)
+    
+    loadPins()
   }
   
   // MARK: - IBActions
@@ -49,12 +49,41 @@ class MainViewController: UIViewController {
     let annotation = MKPointAnnotation()
     annotation.coordinate = location
     map.addAnnotation(annotation)
+    
+    let dbpin = Locations(lat: location.latitude, lng: location.longitude, latd: span.latitudeDelta,
+                          lngd: span.longitudeDelta, context: (appDelegate.dataStack?.context)!)
+    try! appDelegate.dataStack?.saveContext()
   }
   
   // MARK: - Private functions
   private func setup() {
     let longTapHandler = UILongPressGestureRecognizer(target: self, action: #selector(addPin(_:)))
     map.addGestureRecognizer(longTapHandler)
+  }
+  
+  private func loadPins() {
+    do {
+      try fetchedResultsController.performFetch()
+    } catch {
+      print("Fetch Failed!!!!!!")
+      return
+    }
+    
+    guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
+      return
+    }
+    
+    var annotations = [MKPointAnnotation]()
+    
+    for object in fetchedObjects {
+      let location = object as! Locations
+      let coordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+      let annotation = MKPointAnnotation()
+      annotation.coordinate = coordinates
+      annotations.append(annotation)
+    }
+    
+    map.addAnnotations(annotations)
   }
   
 }
