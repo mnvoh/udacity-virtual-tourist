@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,21 +20,44 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AOd-b1-tgl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHE-Ot-jZ0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="2vs-CP-Xsv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AOd-b1-tgl" secondAttribute="trailing" id="0Rd-ZG-xC1"/>
+                            <constraint firstItem="IHE-Ot-jZ0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="2zH-r7-c1t"/>
+                            <constraint firstAttribute="trailing" secondItem="IHE-Ot-jZ0" secondAttribute="trailing" id="Hss-ps-ZVs"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AOd-b1-tgl" secondAttribute="bottom" id="aAR-zo-2Rl"/>
+                            <constraint firstItem="AOd-b1-tgl" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fNc-Um-Gza"/>
+                            <constraint firstItem="AOd-b1-tgl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hPg-31-7vV"/>
+                            <constraint firstItem="IHE-Ot-jZ0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="qLH-nj-xNU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fNq-Kr-ogq"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="map" destination="AOd-b1-tgl" id="u7c-Uh-kGM"/>
                         <segue destination="V0a-0E-4nO" kind="show" id="R1O-7U-2cH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1154" y="778"/>
+            <point key="canvasLocation" x="1152.8" y="777.66116941529242"/>
         </scene>
-        <!--View Controller-->
+        <!--Collection View Controller-->
         <scene sceneID="m4c-G4-q4t">
             <objects>
-                <viewController id="V0a-0E-4nO" sceneMemberID="viewController">
+                <viewController id="V0a-0E-4nO" customClass="CollectionViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fQo-Zm-ccb"/>
                         <viewControllerLayoutGuide type="bottom" id="AEe-pf-Ldb"/>
