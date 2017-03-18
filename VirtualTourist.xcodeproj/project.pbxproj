@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		11965EEA1E7C4C81009994E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965EE91E7C4C81009994E2 /* AppDelegate.swift */; };
-		11965EEC1E7C4C81009994E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965EEB1E7C4C81009994E2 /* ViewController.swift */; };
 		11965EEF1E7C4C81009994E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11965EED1E7C4C81009994E2 /* Main.storyboard */; };
 		11965EF11E7C4C81009994E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11965EF01E7C4C81009994E2 /* Assets.xcassets */; };
 		11965EF41E7C4C81009994E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11965EF21E7C4C81009994E2 /* LaunchScreen.storyboard */; };
@@ -18,12 +17,13 @@
 		11965F0D1E7D378B009994E2 /* Photos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F091E7D378B009994E2 /* Photos+CoreDataProperties.swift */; };
 		11965F0E1E7D378B009994E2 /* Locations+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F0A1E7D378B009994E2 /* Locations+CoreDataClass.swift */; };
 		11965F0F1E7D378B009994E2 /* Locations+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F0B1E7D378B009994E2 /* Locations+CoreDataProperties.swift */; };
+		11965F111E7D3A68009994E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F101E7D3A68009994E2 /* MainViewController.swift */; };
+		11965F131E7D3A76009994E2 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11965F121E7D3A76009994E2 /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		11965EE61E7C4C81009994E2 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11965EE91E7C4C81009994E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		11965EEB1E7C4C81009994E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		11965EEE1E7C4C81009994E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11965EF01E7C4C81009994E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11965EF31E7C4C81009994E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -34,6 +34,8 @@
 		11965F091E7D378B009994E2 /* Photos+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11965F0A1E7D378B009994E2 /* Locations+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locations+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11965F0B1E7D378B009994E2 /* Locations+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locations+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11965F101E7D3A68009994E2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		11965F121E7D3A76009994E2 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +72,6 @@
 				11965EFE1E7D2F7B009994E2 /* Views */,
 				11965EFD1E7C4CD6009994E2 /* Models */,
 				11965EE91E7C4C81009994E2 /* AppDelegate.swift */,
-				11965EEB1E7C4C81009994E2 /* ViewController.swift */,
 				11965F001E7D2F8D009994E2 /* Supporting Files */,
 			);
 			path = VirtualTourist;
@@ -101,6 +102,8 @@
 		11965EFF1E7D2F83009994E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				11965F101E7D3A68009994E2 /* MainViewController.swift */,
+				11965F121E7D3A76009994E2 /* CollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -204,14 +207,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11965F131E7D3A76009994E2 /* CollectionViewController.swift in Sources */,
 				11965F051E7D326B009994E2 /* VirtualTourist.xcdatamodeld in Sources */,
 				11965F0E1E7D378B009994E2 /* Locations+CoreDataClass.swift in Sources */,
 				11965F0C1E7D378B009994E2 /* Photos+CoreDataClass.swift in Sources */,
 				11965F0D1E7D378B009994E2 /* Photos+CoreDataProperties.swift in Sources */,
 				11965F0F1E7D378B009994E2 /* Locations+CoreDataProperties.swift in Sources */,
 				11965EFC1E7C4CD1009994E2 /* CoreDataStack.swift in Sources */,
-				11965EEC1E7C4C81009994E2 /* ViewController.swift in Sources */,
 				11965EEA1E7C4C81009994E2 /* AppDelegate.swift in Sources */,
+				11965F111E7D3A68009994E2 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
