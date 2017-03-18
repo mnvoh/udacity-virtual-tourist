@@ -14,10 +14,27 @@ class MainViewController: UIViewController {
   
   // MARK: - IBOutlets
   @IBOutlet weak var map: MKMapView!
+  @IBOutlet weak var tapToDeleteLabelHeightConstraint: NSLayoutConstraint!
   
   // MARK: - Properties
   let appDelegate = UIApplication.shared.delegate as! AppDelegate
   var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+  var deleteMode = false {
+    didSet {
+      if deleteMode {
+        tapToDeleteLabelHeightConstraint.constant = 44
+        UIView.animate(withDuration: 0.3, animations: {
+          self.view.layoutIfNeeded()
+        })
+      }
+      else {
+        tapToDeleteLabelHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.3, animations: {
+          self.view.layoutIfNeeded()
+        })
+      }
+    }
+  }
   
   struct Storyboard {
     static let mapToPhotosId = "mapToPhotos"
@@ -37,6 +54,11 @@ class MainViewController: UIViewController {
     loadPins()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tapToDeleteLabelHeightConstraint.constant = 0
+  }
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == Storyboard.mapToPhotosId {
       let vc = segue.destination as! CollectionViewController
@@ -45,6 +67,16 @@ class MainViewController: UIViewController {
   }
   
   // MARK: - IBActions
+  @IBAction func edit(_ sender: UIBarButtonItem) {
+    if deleteMode {
+      sender.title = "Edit"
+      deleteMode = false
+    }
+    else {
+      sender.title = "Done"
+      deleteMode = true
+    }
+  }
   
   
   // MARK: - Public functions
@@ -130,7 +162,6 @@ extension MainViewController: MKMapViewDelegate {
   }
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    print(view.annotation?.title)
     guard let annotation = view.annotation,
       let unwrappedTitle = annotation.title,
       let title = unwrappedTitle,
