@@ -11,11 +11,14 @@ import MapKit
 
 class CollectionViewController: UIViewController {
   
+  // MARK: - IBOutlets
   @IBOutlet weak var map: MKMapView!
   @IBOutlet weak var collection: UICollectionView!
   
+  // MARK: - Properties
   var location: Locations!
   
+  // MARK: - Overrides
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -37,6 +40,11 @@ class CollectionViewController: UIViewController {
         print(photo.url)
       }
     }
+  }
+  
+  // MARK: - Private Functions
+  private func getPhotos() {
+    
   }
   
 }

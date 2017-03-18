@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1138FF2A1E7DCB2400F7E741 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FF291E7DCB2400F7E741 /* PhotoCollectionViewCell.swift */; };
 		11775D611E7DA95D00FF9CFD /* FlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11775D601E7DA95D00FF9CFD /* FlickrPhoto.swift */; };
 		11775D661E7DABB200FF9CFD /* Locations+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11775D621E7DABB200FF9CFD /* Locations+CoreDataClass.swift */; };
 		11775D671E7DABB200FF9CFD /* Locations+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11775D631E7DABB200FF9CFD /* Locations+CoreDataProperties.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1138FF291E7DCB2400F7E741 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		11775D601E7DA95D00FF9CFD /* FlickrPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
 		11775D621E7DABB200FF9CFD /* Locations+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locations+CoreDataClass.swift"; sourceTree = "<group>"; };
 		11775D631E7DABB200FF9CFD /* Locations+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locations+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		11965F021E7D30F8009994E2 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				1138FF291E7DCB2400F7E741 /* PhotoCollectionViewCell.swift */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				11775D661E7DABB200FF9CFD /* Locations+CoreDataClass.swift in Sources */,
 				11965EFC1E7C4CD1009994E2 /* CoreDataStack.swift in Sources */,
 				11965EEA1E7C4C81009994E2 /* AppDelegate.swift in Sources */,
+				1138FF2A1E7DCB2400F7E741 /* PhotoCollectionViewCell.swift in Sources */,
 				11775D681E7DABB200FF9CFD /* Photos+CoreDataClass.swift in Sources */,
 				11965F1A1E7D5040009994E2 /* Locations.swift in Sources */,
 				11965F111E7D3A68009994E2 /* MainViewController.swift in Sources */,
