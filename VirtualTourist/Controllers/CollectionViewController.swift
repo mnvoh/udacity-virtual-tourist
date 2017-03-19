@@ -83,59 +83,69 @@ class CollectionViewController: UIViewController {
     }
     
     // reload the collection view to show that it's been emptied
+    photos = [Photos?]()
     collection.reloadData()
     
-    FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (photos, error) in
+    FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (fetchedPhotos, error) in
       guard error == nil else {
-        self.showError(title: "Error", message: error!)
-        self.setNewCollectionButton(enabled: true)
+        DispatchQueue.main.async {
+          self.showError(title: "Error", message: error!)
+          self.setNewCollectionButton(enabled: true)
+        }
         return
       }
       
-      guard let photos = photos else {
-        self.showError(title: "Error", message: "Could not get the photos!")
-        self.setNewCollectionButton(enabled: true)
+      guard let fetchedPhotos = fetchedPhotos else {
+        DispatchQueue.main.async {
+          self.showError(title: "Error", message: "Could not get the photos!")
+          self.setNewCollectionButton(enabled: true)
+        }
         return
       }
       
-      if photos.count <= 0 {
-        self.setNewCollectionButton(enabled: true)
+      if fetchedPhotos.count <= 0 {
+        DispatchQueue.main.async {
+          self.setNewCollectionButton(enabled: true)
+        }
         return
       }
       
       DispatchQueue.main.async {
         self.photos = [Photos?]()
-        for _ in 0 ..< photos.count {
+        for _ in 0 ..< fetchedPhotos.count {
           self.photos.append(nil)
         }
         self.collection.reloadData()
       }
       
-      for (index, item) in photos.enumerated() {
+      for (index, item) in fetchedPhotos.enumerated() {
         FlickrApiClient.sharedInstance.download(flickrPhoto: item, indexInArray: index, { (image, indexInArray) in
           guard let image = image else { return }
           
           // save the image in the database
           if let imageData = UIImageJPEGRepresentation(image, 0.9) {
-            // Create a Photos object
-            let dbphoto = Photos(image: imageData, context: (self.dataStack?.context)!)
-            dbphoto.location = self.location
-            self.photos[indexInArray] = dbphoto
-            
-            // Update teh collection view
+            // Create a Photos object on the main thread that's gonna use it
             DispatchQueue.main.async {
-              self.collection.reloadData()
-            }
-            
-            do {
-              try self.dataStack?.saveContext()
-            } catch {
-              print(error.localizedDescription)
+              let dbphoto = Photos(image: imageData, context: (self.dataStack?.context)!)
+              dbphoto.location = self.location
+              self.photos[indexInArray] = dbphoto
+              // Update teh collection view
+              let cell = self.collection.cellForItem(at: IndexPath(item: indexInArray, section: 0))
+                as? PhotoCollectionViewCell
+              cell?.image = dbphoto
+              
+              do {
+                try self.dataStack?.saveContext()
+              } catch {
+                print(error.localizedDescription)
+              }
             }
           }
         })
       }
-      self.setNewCollectionButton(enabled: true)
+      DispatchQueue.main.async {
+        self.setNewCollectionButton(enabled: true)
+      }
     }
   }
   
@@ -176,6 +186,7 @@ extension CollectionViewController: UICollectionViewDataSource {
     }
     
     cell?.image = photos[indexPath.item]
+    print(cell?.image)
     
     return cell!
   }

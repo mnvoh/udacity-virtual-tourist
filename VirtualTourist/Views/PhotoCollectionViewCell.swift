@@ -25,6 +25,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         }
         else {
           self.activityInd.isHidden = false
+          self.imageView.image = nil
+          self.activityInd.startAnimating()
         }
       }
     }
