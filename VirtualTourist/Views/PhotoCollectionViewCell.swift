@@ -18,7 +18,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     didSet {
       // make sure we're on the main queue
       DispatchQueue.main.async {
-        if self.image != nil {
+        if self.image != nil && self.image!.photo != nil {
           self.activityInd.isHidden = true
           let uiimage = UIImage(data: self.image?.photo as! Data)
           self.imageView.image = uiimage

@@ -15,6 +15,7 @@ class CollectionViewController: UIViewController {
   @IBOutlet weak var map: MKMapView!
   @IBOutlet weak var collection: UICollectionView!
   @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+  @IBOutlet weak var newCollectionButton: UIButton!
   
   
   // MARK: - Properties
@@ -40,7 +41,7 @@ class CollectionViewController: UIViewController {
     if let dbphotos = location.photos, dbphotos.count > 0 {
       photos = [Photos?]()
       for p in dbphotos {
-        photos.append(p as! Photos)
+        photos.append(p as? Photos)
       }
     }
     else {
@@ -52,20 +53,53 @@ class CollectionViewController: UIViewController {
     setupCollectionView()
   }
   
+  
+  // MARK: - IBActions
+  
+  @IBAction func newCollection(_ sender: Any) {
+    getPhotos()
+  }
+  
+  
   // MARK: - Private Functions
   private func getPhotos() {
+    setNewCollectionButton(enabled: false)
+    
+    // delete the current photos, if any
+    if photos.count > 0 {
+      for photo in photos {
+        if let photo = photo {
+          dataStack?.context.delete(photo)
+        }
+      }
+      do {
+        try dataStack?.saveContext()
+      } catch {
+        // could not save the database
+        showError(title: "Error", message: error.localizedDescription)
+        setNewCollectionButton(enabled: true)
+        return
+      }
+    }
+    
+    // reload the collection view to show that it's been emptied
+    collection.reloadData()
+    
     FlickrApiClient.sharedInstance.getPhotosFor(location: location) { (photos, error) in
       guard error == nil else {
         self.showError(title: "Error", message: error!)
+        self.setNewCollectionButton(enabled: true)
         return
       }
       
       guard let photos = photos else {
         self.showError(title: "Error", message: "Could not get the photos!")
+        self.setNewCollectionButton(enabled: true)
         return
       }
       
       if photos.count <= 0 {
+        self.setNewCollectionButton(enabled: true)
         return
       }
       
@@ -101,6 +135,7 @@ class CollectionViewController: UIViewController {
           }
         })
       }
+      self.setNewCollectionButton(enabled: true)
     }
   }
   
@@ -110,6 +145,11 @@ class CollectionViewController: UIViewController {
     flowLayout.minimumInteritemSpacing = 1
     flowLayout.minimumLineSpacing = 1
     collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseId)
+  }
+  
+  private func setNewCollectionButton(enabled: Bool) {
+    newCollectionButton.isEnabled = enabled
+    newCollectionButton.alpha = enabled ? 1.0 : 0.5
   }
   
   private func showError(title: String, message: String) {
