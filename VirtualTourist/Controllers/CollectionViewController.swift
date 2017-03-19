@@ -186,7 +186,6 @@ extension CollectionViewController: UICollectionViewDataSource {
     }
     
     cell?.image = photos[indexPath.item]
-    print(cell?.image)
     
     return cell!
   }

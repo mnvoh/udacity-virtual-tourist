@@ -51,12 +51,16 @@ class MainViewController: UIViewController {
                                                           managedObjectContext: (appDelegate.dataStack?.context)!,
                                                           sectionNameKeyPath: nil, cacheName: nil)
     
-    loadPins()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tapToDeleteLabelHeightConstraint.constant = 0
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    loadPins()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -166,6 +170,7 @@ extension MainViewController: MKMapViewDelegate {
   }
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    print("HERE")
     guard let annotation = view.annotation,
       let unwrappedTitle = annotation.title,
       let title = unwrappedTitle,
